@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, 
-                                        PermissionsMixin)
+                                         PermissionsMixin)
 
 
 class UserManager(BaseUserManager):
@@ -15,15 +15,13 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
     def create_superuser(self, email, password):
         """Create super user using cretae user function"""
-        user = self.create_user(email,password)
+        user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
-    
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user that support emial instead of username"""
@@ -35,4 +33,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-
